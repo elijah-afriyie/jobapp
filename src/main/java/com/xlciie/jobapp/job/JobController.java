@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "job")
+@RequestMapping(path = "/job")
 public class JobController {
 	private final JobService jobService;
 
