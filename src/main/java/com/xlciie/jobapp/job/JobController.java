@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 @RestController
 @RequestMapping(path = "/job")
 public class JobController {
@@ -32,7 +34,7 @@ public class JobController {
 	@PostMapping
 	public ResponseEntity<String> addJob(@RequestBody Job job) {
 		jobService.addJob(job);
-		return new ResponseEntity<>("Job with id " + job.getId() + " created", HttpStatus.CREATED);
+		return new ResponseEntity<>("Job with id " + job.getId() + " created", CREATED);
 	}
 
 	@PutMapping(path = "/{id}")
