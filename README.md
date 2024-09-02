@@ -24,7 +24,7 @@
 * Company name
 * Industry
 * Description
-* Location
+* Address
 * Website
 * Email
 * Phone number
