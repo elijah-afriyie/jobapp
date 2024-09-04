@@ -5,6 +5,7 @@ import com.xlciie.jobapp.review.ReviewRepository;
 import com.xlciie.jobapp.review.ReviewService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void addReview(Review review) {
+		review.setReviewDate(LocalDate.now());
 		reviewRepository.save(review);
 	}
 
@@ -47,6 +49,7 @@ public class ReviewServiceImpl implements ReviewService {
 			review.setRating(updatedReview.getRating());
 			review.setComment(updatedReview.getComment());
 			review.setReviewerName(updatedReview.getReviewerName());
+			review.setReviewDate(LocalDate.now());
 
 			reviewRepository.save(review);
 		} else {

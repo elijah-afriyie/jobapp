@@ -2,11 +2,9 @@ package com.xlciie.jobapp.review;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.xlciie.jobapp.company.Company;
-import com.xlciie.jobapp.job.Job;
 import jakarta.persistence.*;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -36,7 +34,7 @@ public class Review {
 	private String reviewerName;
 
 	@Column(name = "review_date", nullable = false, columnDefinition = "DATE")
-	private Date reviewDate;
+	private LocalDate reviewDate;
 
 	@ManyToOne
 	@JoinColumn(name = "company_id", nullable = false)
@@ -46,14 +44,14 @@ public class Review {
 	public Review() {
 	}
 
-	public Review(Integer rating, String comment, String reviewerName, Date reviewDate) {
+	public Review(Integer rating, String comment, String reviewerName, LocalDate reviewDate) {
 		this.rating = rating;
 		this.comment = comment;
 		this.reviewerName = reviewerName;
 		this.reviewDate = reviewDate;
 	}
 
-	public Review(Long id, Integer rating, String comment, String reviewerName, Date reviewDate) {
+	public Review(Long id, Integer rating, String comment, String reviewerName, LocalDate reviewDate) {
 		this.id = id;
 		this.rating = rating;
 		this.comment = comment;
@@ -93,11 +91,11 @@ public class Review {
 		this.reviewerName = reviewerName;
 	}
 
-	public Date getReviewDate() {
+	public LocalDate getReviewDate() {
 		return reviewDate;
 	}
 
-	public void setReviewDate(Date reviewDate) {
+	public void setReviewDate(LocalDate reviewDate) {
 		this.reviewDate = reviewDate;
 	}
 
