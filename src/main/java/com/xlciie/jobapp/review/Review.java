@@ -1,8 +1,12 @@
 package com.xlciie.jobapp.review;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.xlciie.jobapp.company.Company;
+import com.xlciie.jobapp.job.Job;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -22,9 +26,6 @@ public class Review {
 	@Column(name = "id", nullable = false, columnDefinition = "BIGINT")
 	private Long id;
 
-	@Column(name = "company_id", nullable = false, columnDefinition = "BIGINT")
-	private Integer companyId;
-
 	@Column(name = "rating", nullable = false, columnDefinition = "TEXT")
 	private Integer rating;
 
@@ -37,20 +38,23 @@ public class Review {
 	@Column(name = "review_date", nullable = false, columnDefinition = "DATE")
 	private Date reviewDate;
 
+	@ManyToOne
+	@JoinColumn(name = "company_id", nullable = false)
+	@JsonBackReference
+	private Company company;
+
 	public Review() {
 	}
 
-	public Review(Integer companyId, Integer rating, String comment, String reviewerName, Date reviewDate) {
-		this.companyId = companyId;
+	public Review(Integer rating, String comment, String reviewerName, Date reviewDate) {
 		this.rating = rating;
 		this.comment = comment;
 		this.reviewerName = reviewerName;
 		this.reviewDate = reviewDate;
 	}
 
-	public Review(Long id, Integer companyId, Integer rating, String comment, String reviewerName, Date reviewDate) {
+	public Review(Long id, Integer rating, String comment, String reviewerName, Date reviewDate) {
 		this.id = id;
-		this.companyId = companyId;
 		this.rating = rating;
 		this.comment = comment;
 		this.reviewerName = reviewerName;
@@ -63,14 +67,6 @@ public class Review {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Integer getCompanyId() {
-		return companyId;
-	}
-
-	public void setCompanyId(Integer companyId) {
-		this.companyId = companyId;
 	}
 
 	public Integer getRating() {
@@ -105,11 +101,18 @@ public class Review {
 		this.reviewDate = reviewDate;
 	}
 
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
 	@Override
 	public String toString() {
 		return "Review{" +
 				"id=" + id +
-				", companyId=" + companyId +
 				", rating=" + rating +
 				", comment='" + comment + '\'' +
 				", reviewerName='" + reviewerName + '\'' +

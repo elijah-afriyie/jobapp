@@ -1,5 +1,7 @@
 package com.xlciie.jobapp.job;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.xlciie.jobapp.company.Company;
 import jakarta.persistence.*;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
@@ -34,6 +36,11 @@ public class Job {
 
 	@Column(name = "location", nullable = false, columnDefinition = "TEXT")
 	private String location;
+
+	@ManyToOne
+	@JoinColumn(name = "company_id", nullable = false)
+	@JsonBackReference
+	private Company company;
 
 	public Job() {
 	}
@@ -101,6 +108,14 @@ public class Job {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	@Override
