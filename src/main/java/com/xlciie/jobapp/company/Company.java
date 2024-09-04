@@ -52,11 +52,11 @@ public class Company {
 	@Column(name = "phone", nullable = false, columnDefinition = "TEXT")
 	private String phone;
 
-	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "company")
 	@JsonManagedReference
 	private List<Job> jobs;
 
-	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "company")
 	@JsonManagedReference
 	private List<Review> reviews;
 
