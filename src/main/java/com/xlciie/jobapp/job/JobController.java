@@ -10,7 +10,7 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping(path = "/job")
+@RequestMapping(path = "/jobs")
 public class JobController {
 	private final JobService jobService;
 

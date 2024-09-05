@@ -10,7 +10,7 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping(path = "/company")
+@RequestMapping(path = "/companies")
 public class CompanyController {
 	private final CompanyService companyService;
 
