@@ -19,7 +19,11 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<Review> findAllReviews() {
-		return reviewRepository.findAll();
+		try {
+			return reviewRepository.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error finding all reviews. Please try again");
+		}
 	}
 
 	@Override
@@ -28,14 +32,18 @@ public class ReviewServiceImpl implements ReviewService {
 		if (reviews.isPresent()) {
 			return reviews;
 		} else {
-			throw new RuntimeException("Review with id " + id + " not found");
+			throw new RuntimeException("Error finding review with id " + id + ". Please try again.");
 		}
 	}
 
 	@Override
 	public void addReview(Review review) {
-		review.setReviewDate(LocalDate.now());
-		reviewRepository.save(review);
+		try {
+			review.setReviewDate(LocalDate.now());
+			reviewRepository.save(review);
+		} catch (Exception e) {
+			throw new RuntimeException("Error adding review. Please try again.");
+		}
 	}
 
 	@Override
@@ -53,7 +61,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 			reviewRepository.save(review);
 		} else {
-			throw new RuntimeException("Review with id " + id + " not found");
+			throw new RuntimeException("Error updating review. Review with id " + id + " does not exist. Please try again.");
 		}
 	}
 
@@ -64,7 +72,7 @@ public class ReviewServiceImpl implements ReviewService {
 		if (review.isPresent()) {
 			reviewRepository.deleteById(id);
 		} else {
-			throw new RuntimeException("Review with id " + id + " not found");
+			throw new RuntimeException("Error deleting review. Review with id " + id + " does not exist. Please try again");
 		}
 	}
 

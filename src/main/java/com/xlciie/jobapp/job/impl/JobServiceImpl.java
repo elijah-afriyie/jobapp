@@ -18,7 +18,11 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public List<Job> findAllJobs() {
-		return jobRepository.findAll();
+		try {
+			return jobRepository.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error finding all jobs. Please try again.");
+		}
 	}
 
 	@Override
@@ -27,13 +31,17 @@ public class JobServiceImpl implements JobService {
 		if (job.isPresent()) {
 			return job;
 		} else {
-			throw new RuntimeException("Job with id " + id + " not found");
+			throw new RuntimeException("Error finding job with id " + id + ". Please try again.");
 		}
 	}
 
 	@Override
 	public void addJob(Job job) {
-		jobRepository.save(job);
+		try {
+			jobRepository.save(job);
+		} catch (Exception e) {
+			throw new RuntimeException("Error adding job. Please try again.");
+		}
 	}
 
 	@Override
@@ -50,7 +58,7 @@ public class JobServiceImpl implements JobService {
 
 			jobRepository.save(job);
 		} else {
-			throw new RuntimeException("Job with id " + id + " not found");
+			throw new RuntimeException("Error updating job. Job with id " + id + " does not exist. Please try again.");
 		}
 	}
 
@@ -60,7 +68,7 @@ public class JobServiceImpl implements JobService {
 		if (job.isPresent()) {
 			jobRepository.delete(job.get());
 		} else {
-			throw new RuntimeException("Job with id " + id + " not found");
+			throw new RuntimeException("Error deleting job. Job with id " + id + " does not exist. Please try again");
 		}
 	}
 }

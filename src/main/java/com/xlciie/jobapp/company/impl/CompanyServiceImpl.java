@@ -18,7 +18,11 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Company> findAllCompanies() {
-		return companyRepository.findAll();
+		try {
+			return companyRepository.findAll();
+		} catch (Exception e) {
+			throw new RuntimeException("Error finding all companies. Please try again.");
+		}
 	}
 
 	@Override
@@ -27,13 +31,17 @@ public class CompanyServiceImpl implements CompanyService {
 		if (company.isPresent()) {
 			return company;
 		} else {
-			throw new RuntimeException("Company with id " + id + " not found");
+			throw new RuntimeException("Error finding company with id " + id + ". Please try again.");
 		}
 	}
 
 	@Override
 	public void addCompany(Company company) {
-		companyRepository.save(company);
+		try {
+			companyRepository.save(company);
+		} catch (Exception e) {
+			throw new RuntimeException("Error adding company. Please try again.");
+		}
 	}
 
 	@Override
@@ -52,7 +60,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 			companyRepository.save(company);
 		} else {
-			throw new RuntimeException("Company with id " + id + " not found");
+			throw new RuntimeException("Error updating company. Company with id " + id + " does not exist. Please try again");
 		}
 	}
 
@@ -62,7 +70,7 @@ public class CompanyServiceImpl implements CompanyService {
 		if (company.isPresent()) {
 			companyRepository.delete(company.get());
 		} else {
-			throw new RuntimeException("Company with id " + id + " not found");
+			throw new RuntimeException("Error deleting company. Company with id " + id + " does not exist. Please try again");
 		}
 	}
 
